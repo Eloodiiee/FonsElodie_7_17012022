@@ -1,7 +1,7 @@
 
 //Modules
 const mysql = require('../connection').connection
-const fs = require("fs"); // Permet de gérer les fichiers stockés
+const fs = require("fs"); //Permet de gérer les fichiers stockés
 
 
 function getNewestFile(files, path) {
@@ -88,12 +88,11 @@ exports.createPost = (req, res, next) => {
     })
 
 };
-
+//Middleware modifyPost pour modifier un post
 exports.modifyPost = (req, res, next) => {
     const postID = req.params.id;
     const userID = req.body.userID;
     const legend = req.body.legend;
-  
 
 
     
@@ -108,11 +107,10 @@ exports.modifyPost = (req, res, next) => {
 };
 
 
-// MIDDLEWARE DELETEPOST pour supprimer les messages
+//Middleware deletePost pour supprimer un post
 exports.deletePost = (req, res, next) => {
     const postID = req.params.id;
     const userID = req.query.userID;
-  
 
     let sqlDeletePost;
     let sqlSelectPost;
@@ -128,7 +126,7 @@ exports.deletePost = (req, res, next) => {
                         console.log(err.message)
                         return res.status(500).json(err.message);
                     }
-                    res.status(200).json({ message: "Post deleted !" });
+                    res.status(200).json({ message: "Post supprimé !" });
                 });
             });
         } else {
@@ -138,7 +136,7 @@ exports.deletePost = (req, res, next) => {
                     console.log(err.message)
                     return res.status(500).json(err.message);
                 }
-                res.status(200).json({ message: "Post deleted !" });
+                res.status(200).json({ message: "Post supprimé !" });
             });
         }
         if (err) {
@@ -149,7 +147,7 @@ exports.deletePost = (req, res, next) => {
 
     });
 };
-
+//Middleware createComment pour créer un commentaire
 exports.createComment = (req, res, next) => {
     const postID = req.params.id;
     const userID = req.body.userID;
@@ -163,14 +161,15 @@ exports.createComment = (req, res, next) => {
         if (err) {
             return res.status(500).json(err.message);
         }
-        res.status(201).json({ message: "Commentaire crée !" });
+        res.status(201).json({ message: "Commentaire créé !" });
     });
 };
-
+//Middleware getComment pour récupérer les commentaires
 exports.getComments = (req, res, next) => {
     const userID = req.query.userID
     const postID = req.params.id
-   
+
+
     let sqlGetComments = `SELECT post.postID, post.userID, postIdComment, body, DATE_FORMAT(post.dateCreation, '%e %M %Y at %kh%i') AS dateCreation, firstName, lastName, pseudo, avatarUrl,
     COUNT(CASE WHEN reaction.reaction = 1 then 1 else null end) AS countUp,
     COUNT(CASE WHEN reaction.reaction = -1 then 1 else null end) AS countDown,
@@ -183,12 +182,11 @@ exports.getComments = (req, res, next) => {
             console.log(err.sqlMessage)
             return res.status(500).json(err.message)
         }
-        
         res.status(201).json(result)
     })
 
 }
-
+//Middleware reactPost pour pouvoir réagir à un post
 exports.reactPost = (req, res, next) => {
     const userID = req.body.userID;
     const reaction = req.body.reaction;
@@ -202,7 +200,6 @@ exports.reactPost = (req, res, next) => {
             return res.status(500).json(err.message)
         }
         
-        
         let sqlReaction = `INSERT INTO reaction VALUES (?, ?, ?, NOW())`
         let values = [userID, postID, reaction, reaction]
     
@@ -211,14 +208,12 @@ exports.reactPost = (req, res, next) => {
             values = [reaction, userID, postID]
         }
 
-       
-
         mysql.query(sqlReaction, values, function (err, result) {
             if (err) {
                 console.log(err.message)
                 return res.status(500).json(err.message);
             }
-            res.status(201).json({ message: "Réaction mise à jour !" });
+            res.status(201).json({ message: "Réaction mise à jour!" });
         });
     })
 
@@ -226,5 +221,3 @@ exports.reactPost = (req, res, next) => {
     
     
 };
-
-// FIN MIDDLEWARE

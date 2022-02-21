@@ -12,7 +12,6 @@
           v-on:input="sendComment"
         ></textarea>
       </div>
-  
       <slot name="sendButton"></slot>
     </form>
   </div>

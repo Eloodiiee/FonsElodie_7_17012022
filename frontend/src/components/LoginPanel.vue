@@ -59,9 +59,8 @@ export default {
   methods: {
     sendData() {
       // Envoi des données au parent pour traiter l'envoi à l'API
-     
       this.$emit("data-sent", this.$data);
-      //   }
+  
     },
     connectUser() {
       const emailValid = document.getElementById("email").checkValidity();
