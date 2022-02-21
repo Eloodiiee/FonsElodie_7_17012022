@@ -217,9 +217,8 @@ exports.modify = (req, res, next) => {
             const passwordHashed = result[0].password;
             bcrypt.compare(password, passwordHashed)
                 .then(valid => {
-                    if (!valid) {
-                        return res.status(401).json({ error: "Mot de passe incorrect !" });
-                    }
+                   
+                    
 
                     if (newPassword) { // TO DEFINE NEW PASSWORD 
                         bcrypt.hash(newPassword, 10)
