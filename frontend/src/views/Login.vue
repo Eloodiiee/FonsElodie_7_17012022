@@ -44,10 +44,10 @@ export default {
         .catch((err) =>{
           console.error(err.message)
           if (err.response.status === 401) {
-            alert("Wrong email or password");
+            alert("Email incorrect ou mot de passe !");
           }
           else if (err.response.status === 500) {
-            alert("Server error");
+            alert("Erreur du serveur");
           }
         })
     },
