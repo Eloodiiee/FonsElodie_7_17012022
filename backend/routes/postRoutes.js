@@ -4,7 +4,7 @@ const multer = require("../middleware/multer-config")
 const router = express.Router()
 const postController = require("../controllers/post")
 
-//ACCESS POINTS : END POINTS
+//Route d'accès au controleurs des posts, il faut être authentifié pour y avoir accès
 router.get("/", auth, postController.getAllPosts)
 router.get("/:id", auth, postController.getOnePost)
 router.post("/", auth, multer, postController.createPost)

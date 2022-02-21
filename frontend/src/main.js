@@ -1,16 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router.js'
-import Axios from 'axios' //Library JS
-// import {BootstrapVue} from 'bootstrap-vue'
-// import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Axios from 'axios' //Librairie JS
 
-//where to send requests
+
+//Adresse d'envoi des requêtes
 Axios.defaults.baseURL = "http://localhost:3000/api"
-//in order not to import Axios every time, to keep it in Vue proptotype storage
+//Pour éviter d'importer Axios à chaque fois, il est gardé dans le stockage prototype de Vue
 Vue.prototype.$axios = Axios
-// Vue.use(BootstrapVue)
 
 
 new Vue ({

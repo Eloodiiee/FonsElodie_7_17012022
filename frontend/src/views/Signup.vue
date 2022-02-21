@@ -65,7 +65,7 @@ export default {
         .post("/auth/signup", this.$data)
         .then((res) => {
           console.log(`send to server ${this.$data}`);
-          //this will redirect user to login page
+          //Cela va rediriger l'utilisateur vers la page de connexion
           this.$router.push("/");
         })
         .catch((err) =>{

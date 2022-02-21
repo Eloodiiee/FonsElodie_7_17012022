@@ -4,7 +4,7 @@ const router = express.Router()
 const userController = require("../controllers/user");
 const auth = require("../middleware/auth");
 
-//ACCESS POINTS
+//Routes des contrôleurs des utilisateurs
 router.post("/signup", userController.signup)
 router.post("/login", userController.login)
 router.delete("/delete", userController.delete)

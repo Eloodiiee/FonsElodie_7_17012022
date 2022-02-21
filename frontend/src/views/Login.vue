@@ -52,7 +52,6 @@ export default {
         })
     },
     updateLoginData(data) {
-      // console.log("updating data")
       this.email = data.email;
       this.password = data.password;
     },

@@ -106,8 +106,6 @@ export default {
       }
     },
     displayCommentInput() {
-      //  console.log("POST ID")
-      //  console.log(this.postId)
       this.$emit("display-comment-input", this.postId);
     },
     updateReaction() {
@@ -170,7 +168,6 @@ export default {
 .author {
   display: flex;
   align-self: flex-start;
-  /* border: 2px solid blue; */
 }
 
 .content {

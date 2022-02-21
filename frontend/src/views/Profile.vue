@@ -60,7 +60,7 @@
       <p>{{ user.email }}</p>
     </div>
     <div class="account-delete-form" v-if="user.yourProfile === 1">
-      <!-- user can delete his profile -->
+      <!-- L'utilisateur peut supprimer son compte -->
       <form>
         <input type="password" id="passwordDelete" />
         <button v-on:click="deleteProfile" class="confirm" type="button">Supprimer le compte</button>
@@ -88,7 +88,7 @@ export default {
   methods: {
     getUser() {
       this.$axios
-        //sessionStorage in this case: as long as user has token, sessionStorage keep his id
+        //sessionStorage veut dire dans ce cas que tant que l'utilisateur a son token, sessionStorage conserve son id
         .get(`/auth/profile/${this.$route.params.id}`, {
           params: {
             id: this.$route.params.id,
@@ -117,7 +117,7 @@ export default {
         });
     },
     updateProfile() {
-      // Update les autres infos
+      //Met à jour les autres infos
       const email = this.user.email;
       const pseudo = this.user.pseudo;
       const bio = this.user.bio;
@@ -150,7 +150,7 @@ export default {
         })
         .catch((e) => {
           if (e.response.status === 401) {
-            this.messageError = "Invalid password";
+            this.messageError = "Mot de passe incorrect";
           }
         });
     },
@@ -171,15 +171,15 @@ export default {
         })
         .catch((e) => {
           if (e.response.status === 401) {
-            console.log("Invalid password");
+            console.log("Mot de passe incorrect");
           }
         });
     },
   },
   mounted() {
-    // Récupère les posts et défini le titre
+    //Récupère les posts et défini le titre
     this.getUser();
-    document.title = "Profile | Groupomania";
+    document.title = "Profil | Groupomania";
   },
   watch: {
     "$route.params.id": function () {

@@ -94,7 +94,6 @@ updateReaction() {
   },
    mounted() {
     this.updateReaction();
-    // console.log(this.body)
   },
   updated() {
     this.updateReaction();

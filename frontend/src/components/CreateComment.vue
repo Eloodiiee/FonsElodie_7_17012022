@@ -12,10 +12,7 @@
           v-on:input="sendComment"
         ></textarea>
       </div>
-      <!-- <button
-        type="submit"
-        v-on:click.prevent="sendComment()"
-      >Submit</button> -->
+  
       <slot name="sendButton"></slot>
     </form>
   </div>
@@ -31,7 +28,6 @@ export default {
   },
   methods: {
     sendComment: function() {
-      // console.log(this.$data.comment)
       this.$emit("comment-sent", this.$data);
     },
   },

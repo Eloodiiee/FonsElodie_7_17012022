@@ -58,13 +58,8 @@ export default {
 
   methods: {
     sendData() {
-      // Envois des données au parent pour traiter l'envois à l'API
-      //   const firstNameValid = document
-      //     .getElementById("firstName")
-      //     // .checkValidity();
-      //   const lastNameValid = document.getElementById("lastName").checkValidity();
-      //   if (firstNameValid && lastNameValid) {
-      // console.log("sending data from login panel");
+      // Envoi des données au parent pour traiter l'envoi à l'API
+     
       this.$emit("data-sent", this.$data);
       //   }
     },
@@ -72,7 +67,6 @@ export default {
       const emailValid = document.getElementById("email").checkValidity();
       const passwordValid = document.getElementById("password").checkValidity();
       if (emailValid && passwordValid) {
-        //return the event when sb is connected
         this.$emit("connect-user", this.$data);
       }
     },

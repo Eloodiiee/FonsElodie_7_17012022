@@ -29,7 +29,6 @@ export default {
         .getElementsByName("createPost")[0]
         .checkValidity();
       if (formValid) {
-        //console.log("Sent image: ", this.$data.image);
         this.$emit("post-sent", this.$data);
         document
           .getElementsByName("legend")[0].value = null;

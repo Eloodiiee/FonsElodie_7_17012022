@@ -8,7 +8,7 @@
     <router-link class="r-link" to="/Wall">Accueil</router-link>
     <router-link class="r-link"
       :to="{
-        //name has to be the same as COMPONENT vue
+        //Le nom doit être identique à celui du composant VUE
         name: 'Profile',
         params: {
           id: 'yourProfile',

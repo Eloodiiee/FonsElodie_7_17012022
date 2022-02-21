@@ -1,5 +1,5 @@
 <template>
-  <div id="app"><router-view /></div> <!-- to launch all other Vue elements-->
+  <div id="app"><router-view /></div> <!-- Pour lancer tout les autres éléments Vue -->
 </template>
 
 
@@ -19,10 +19,7 @@ body{
 background: rgb(137,92,193);
 
 }
-/* img {
-  width:50px;
-  height: 50px;
-} */
+
 </style>
 
 

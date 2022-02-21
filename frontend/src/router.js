@@ -1,4 +1,4 @@
-import Vue from "vue" // package name in npm
+import Vue from "vue" 
 import VueRouter from "vue-router"
 
 import Login from "./views/Login.vue"
@@ -8,7 +8,7 @@ import Wall from './views/Wall.vue'
 import Post from './views/WallPost.vue'
 
 Vue.use(VueRouter);
-const mode = 'history' // way to shorthen the path and make them readable
+const mode = 'history' //Permet de rendre les chemins plus courts et plus lisibles
 const routes = [
   {
     path: '/',

@@ -127,35 +127,31 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401) {
-            // this.connected = false;
-            console.log("Connection to server failed");
+            console.log("Connexion au serveur échouée");
           } else if (error.response.status === 500) {
             console.log(error.response.data);
           } else {
-            console.log("Unknown server error");
+            console.log("Erreur du serveur inconnue");
           }
         });
     },
     getPosts() {
-      // console.log("trying to get posts");
       this.$axios
         .get("/post", { params: { userID: sessionStorage.getItem("userID") } })
         .then((response) => {
           this.posts = response.data;
-          // console.log(response.data);
         })
         .catch((error) => {
           if (error.response.status === 401) {
-            // this.connected = false;
-            console.log("Connection to server failed");
-            alert("Authorization failed, please log in again");
+            console.log("Connexion au serveur échouée");
+            alert("Problème d'autorisation, veuillez vous reconnecter");
             this.$router.push("/");
           } else if (error.response.status === 500) {
-            console.log("Server error");
-            alert("Server error");
+            console.log("Erreur du serveur");
+            alert("Erreur du serveur");
           } else {
-            console.log("Unknown server error");
-            alert("Unknown server error");
+            console.log("Erreur du serveur inconnue");
+            alert("Erreur du serveur inconnue");
           }
         });
     },
@@ -171,7 +167,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          alert("Couldn't send the post, try to log in again");
+          alert("Le post n'a pas pu être envoyé, veuillez vous reconnecter");
         });
     },
     deletePost(postId) {
@@ -236,10 +232,9 @@ export default {
     this.getUserRole();
   },
   mounted() {
-    console.log("Wall mounted");
     this.getPosts();
     this.getUserRole();
-    document.title = "Groupomania - Wall";
+    document.title = "Groupomania - Accueil";
   },
 };
 </script>

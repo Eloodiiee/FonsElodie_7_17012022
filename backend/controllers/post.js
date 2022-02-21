@@ -1,8 +1,8 @@
 
-// MODULES
+//Modules
 const mysql = require('../connection').connection
 const fs = require("fs"); // Permet de gérer les fichiers stockés
-// FIN MODULES
+
 
 function getNewestFile(files, path) {
     var out = [];
@@ -18,7 +18,7 @@ function getNewestFile(files, path) {
     return (out.length>0) ? out[0].file : "";
 }
 
-// MIDDLEWARE GETALLPOSTS TO OBTAIN ALL MESSAGES
+//Middleware getAllPosts pour récupérer tout les posts
 exports.getAllPosts = (req, res, next) => {
     const userID = req.query.userID;
 
@@ -40,9 +40,9 @@ exports.getAllPosts = (req, res, next) => {
         res.status(200).json(result);
     });
 };
-// FIN MIDDLEWARE
 
-// MIDDLEWARE GETONEPOST pour obtenir un message
+
+//Middleware getOnePost pour récupérer un post
 exports.getOnePost = (req, res, next) => {
     const userID = req.query.userID;
     const postID = req.params.id;
@@ -65,18 +65,14 @@ exports.getOnePost = (req, res, next) => {
         res.status(200).json(result);
     });
 };
-// FIN MIDDLEWARE
 
-// MIDDLEWARE CREATEPOST pour céer les messages
+//Middleware createPost pour créer un post
 exports.createPost = (req, res, next) => {
-    // console.log(req.body) 
     const userID = req.body.userID;
     const legend = req.body.legend;
     fs.readdir('../backend/images', function(err, files) {
         if (err) { return console.error(err); }
         var file = getNewestFile(files, '../backend/images');
-        //process audioFile here or pass it to a function...
-        //console.log(file);
         const gifUrl = `${req.protocol}://${req.get("host")}/images/${file}`;
         let sqlCreatePost;
         let values;
@@ -87,7 +83,7 @@ exports.createPost = (req, res, next) => {
                 console.log(err.sqlMessage)
                 return res.status(500).json(err.sqlMessage);
             }
-            res.status(201).json({ message: "Post crée !" });
+            res.status(201).json({ message: "Post créé !" });
         });
     })
 
@@ -97,7 +93,7 @@ exports.modifyPost = (req, res, next) => {
     const postID = req.params.id;
     const userID = req.body.userID;
     const legend = req.body.legend;
-    //const gifUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+  
 
 
     
@@ -110,15 +106,13 @@ exports.modifyPost = (req, res, next) => {
         res.status(200).json({ message: "Post modifié !" });
     });
 };
-// FIN MIDDLEWARE
+
 
 // MIDDLEWARE DELETEPOST pour supprimer les messages
 exports.deletePost = (req, res, next) => {
-    // console.log("delete post")
     const postID = req.params.id;
     const userID = req.query.userID;
-    // console.log(postID)
-    // console.log(userID)
+  
 
     let sqlDeletePost;
     let sqlSelectPost;
@@ -126,7 +120,6 @@ exports.deletePost = (req, res, next) => {
     sqlSelectPost = "SELECT gifUrl FROM Post WHERE postID = ?";
     mysql.query(sqlSelectPost, [postID], function (err, result) {
         if (result > 0) {
-            // console.log("if")
             const filename = result[0].gifUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => { // On supprime le fichier image en amont
                 sqlDeletePost = "DELETE FROM Post WHERE userID = ? AND postID = ?";
@@ -139,7 +132,6 @@ exports.deletePost = (req, res, next) => {
                 });
             });
         } else {
-            // console.log("else")
             sqlDeletePost = "DELETE FROM Post WHERE userID = ? AND postID = ?";
             mysql.query(sqlDeletePost, [userID, postID], function (err, result) {
                 if (err) {
@@ -162,7 +154,6 @@ exports.createComment = (req, res, next) => {
     const postID = req.params.id;
     const userID = req.body.userID;
     const body = req.body.content;
-    // console.log("comment-content:", req.body.content);
     let sqlCreateComment;
     let values;
 
@@ -177,12 +168,9 @@ exports.createComment = (req, res, next) => {
 };
 
 exports.getComments = (req, res, next) => {
-    // console.log("getComments()")
     const userID = req.query.userID
     const postID = req.params.id
-    // console.log("userID: ", userID)
-    // console.log("postID: ", postID)
-
+   
     let sqlGetComments = `SELECT post.postID, post.userID, postIdComment, body, DATE_FORMAT(post.dateCreation, '%e %M %Y at %kh%i') AS dateCreation, firstName, lastName, pseudo, avatarUrl,
     COUNT(CASE WHEN reaction.reaction = 1 then 1 else null end) AS countUp,
     COUNT(CASE WHEN reaction.reaction = -1 then 1 else null end) AS countDown,
@@ -195,7 +183,7 @@ exports.getComments = (req, res, next) => {
             console.log(err.sqlMessage)
             return res.status(500).json(err.message)
         }
-        // console.log(result)
+        
         res.status(201).json(result)
     })
 
@@ -213,7 +201,7 @@ exports.reactPost = (req, res, next) => {
             console.log(err.sqlMessage)
             return res.status(500).json(err.message)
         }
-        //console.log(result)
+        
         
         let sqlReaction = `INSERT INTO reaction VALUES (?, ?, ?, NOW())`
         let values = [userID, postID, reaction, reaction]
@@ -223,15 +211,14 @@ exports.reactPost = (req, res, next) => {
             values = [reaction, userID, postID]
         }
 
-        // console.log(`${sqlReaction} - ${reaction}, ${userID}, ${postID}`)
+       
 
         mysql.query(sqlReaction, values, function (err, result) {
             if (err) {
                 console.log(err.message)
                 return res.status(500).json(err.message);
             }
-            //console.log("Reaction succesfully updated")
-            res.status(201).json({ message: "Reaction succesfully updated!" });
+            res.status(201).json({ message: "Réaction mise à jour !" });
         });
     })
 

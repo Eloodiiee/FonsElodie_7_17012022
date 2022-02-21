@@ -151,27 +151,26 @@ export default {
       })
       .catch((error) => {
         if (error.response.status === 401) {
-          // this.connected = false;
-          console.log("Connection to server failed")
+          console.log("Connexion au serveur échouée")
         }
         else if(error.response.status === 500) {
-          console.log("Server error")
+          console.log("Erreur du serveur")
         }
         else {
           console.error(error.response)
-          console.log("Unknown server error")
+          console.log("Erreur du serveur inconnue")
         }
       })
     },
     getComments(){
       this.$axios.get(`post/${this.$route.params.id}/comments`, { params: {userID : sessionStorage.getItem("userID")}})
       .then((response) =>{
-        console.log("Getting comments: ")
+        console.log("Récupération des commentaires: ")
         console.log(response.data)
         this.comments = response.data
       })
       .catch((error) =>{
-        console.log("Error getting comments: ")
+        console.log("Erreur à la récupération des commentaires: ")
         console.log(error)
       })
     },
@@ -181,7 +180,7 @@ export default {
     getPosts() {
       this.$axios.get("/post", { params: { userID: sessionStorage.getItem("userID") } })
       .then((response) => {
-        console.log("Gettign posts:")
+        console.log("Récupération des posts:")
         console.log(response.data)
         this.posts = response.data;
         this.selectCorrectPost()
@@ -189,14 +188,13 @@ export default {
       })
       .catch((error) => {
         if (error.response.status === 401) {
-          // this.connected = false;
-          console.log("Connection to server failed")
+          console.log("Connexion au serveur échouée")
         }
         else if(error.response.status === 500) {
-          console.log("Server error")
+          console.log("Erreur du serveur")
         }
         else {
-          console.log("Unknown server error")
+          console.log("Erreur du serveur inconnue")
           console.error(error.response)
         }
       })
@@ -241,7 +239,6 @@ export default {
       console.log(this.commentID)
     },
     updateComment(content) {
-      // console.log("updating comment: " + content.comment)
       this.commentContent = content.comment;
     },
     postComment(postId) {
@@ -249,7 +246,7 @@ export default {
       const formValid = document.getElementsByName("commentForm")[0]
       .checkValidity();
       if (formValid) {
-        console.log("commentContent: ")
+        console.log("Commentaire: ")
         console.log(this.commentContent)
         this.$axios
         .post("/post/" + postId + "/comment/", {content: this.commentContent, userID: sessionStorage.getItem("userID")})
@@ -267,7 +264,7 @@ export default {
   mounted() {
     this.getPosts();
     this.getUserRole()
-    console.log("Comments:")
+    console.log("Commentaires:")
     console.log(this.comments)
     document.title ="Groupomania - Post";
   },
