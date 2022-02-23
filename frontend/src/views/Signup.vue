@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     signup() {
-      console.log("send data from signup");
+      console.log("Envoi des données de l'inscription");
       console.log(this.$data.email);
       console.log(this.$data.password);
       console.log(this.$data.firstName);
@@ -64,17 +64,17 @@ export default {
       this.$axios
         .post("/auth/signup", this.$data)
         .then((res) => {
-          console.log(`send to server ${this.$data}`);
+          console.log(`Envoi au serveur ${this.$data}`);
           //Cela va rediriger l'utilisateur vers la page de connexion
           this.$router.push("/");
         })
         .catch((err) =>{
           console.error(err.message)
           if (err.response.status === 401) {
-            alert("Wrong email and/or password");
+            alert("Email ou mot de passe incorrect !");
           }
           else if (err.response.status === 500) {
-            alert("Server error");
+            alert("Erreur du serveur !");
           }
         })
     },
